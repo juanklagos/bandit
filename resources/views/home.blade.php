@@ -24,6 +24,9 @@
                             <div class="form-group">
                                 <label>Banco para la trnasacción</label>
                                 <select id="banks" name="banks" class="form-control">
+                                    @foreach($bancosIm as $bank)
+                                        <option value="{{$bank->bankCode}}">{{$bank->bankName}}</option>
+                                    @endforeach
                                 </select>
                                 <span id="message" style="color: red"></span>
                             </div>

@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use SoapClient;
 use Illuminate\Support\Facades\URL;
 use Carbon\Carbon;
+use Session;
 class HomeController extends Controller
 {
     private $url = null;
@@ -31,8 +32,19 @@ class HomeController extends Controller
      */
     public function index()
     {
-
-        return view('home',compact('arrBanks','array'));
+        if (empty(Session::get('bancos'))){
+          $client = new SoapClient($this->url, array("trace" => 1));
+          $client->__setLocation('https://test.placetopay.com/soap/pse/');
+          try {
+              $banks = $client->getBankList(array('auth' => $this->Auth()));
+          } catch (Exception $e) {
+              $banks = array();
+          }
+          //guardo los bancos en session
+        Session::put('bancos',$banks->getBankListResult->item);
+      }
+        $bancosIm = Session::get('bancos');
+        return view('home',compact('bancosIm'));
     }
 
     //function para hashear la credencial
@@ -47,7 +59,7 @@ class HomeController extends Controller
         return (object) $credenciales;
     }
 
-    //consulto los bancos por ajax
+    //consulto los bancos por ajax, por si se hace con ajax
     public function banks(){
         $client = new SoapClient($this->url, array("trace" => 1));
         $client->__setLocation('https://test.placetopay.com/soap/pse/');
