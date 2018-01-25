@@ -159,21 +159,21 @@ class HomeController extends Controller
     }
 
     public function validateEnd(Request $request){
-
-        $transactionID = \Session::get('idTransaccion');
+        $transactionID = Session::get('idTransaccion');
+    if (!empty($transactionID)) {
         $client = new SoapClient($this->url, array("trace" => 1));
         $client->__setLocation('https://test.placetopay.com/soap/pse/');
         try {
             $trans = $client->getTransactionInformation(array(
                 'auth' => $this->Auth(),
-                'transactionID'=>$transactionID
+                'transactionID' => $transactionID
             ));
         } catch (Exception $e) {
             $trans = array();
         }
-      //  var_dump($trans);
+        //  var_dump($trans);
         //consulto la transaccion en la bd
-        $transaccionBd = Transacciones::where('transactionID','=',$transactionID)->first();
+        $transaccionBd = Transacciones::where('transactionID', '=', $transactionID)->first();
         $transaccionBd->transactionState = $trans->getTransactionInformationResult->transactionState;
         $transaccionBd->requestDate = $trans->getTransactionInformationResult->requestDate;
         $transaccionBd->bankProcessDate = $trans->getTransactionInformationResult->bankProcessDate;
@@ -181,8 +181,9 @@ class HomeController extends Controller
         $transaccionBd->reference = $trans->getTransactionInformationResult->reference;
         $transaccionBd->responseReasonText = $trans->getTransactionInformationResult->responseReasonText;
         $transaccionBd->save();
-
+    }
         $transacciones = Transacciones::all();
         return view('transacciones',compact('transacciones'));
+
     }
 }
