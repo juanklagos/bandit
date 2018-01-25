@@ -1,3 +1,14 @@
+##Prueba Bandit
+Para su uso se debe registrar el usuario en el siguiente enlace:
+http://bandit.brogramador.com <br>
+Luego debe escoger el tipo de persona, y un banco, en este caso Banco Union Colmbiano.
+<br>
+Clic en seguir, en registro debe introducir los datos si asi lo desea, o dar en el boton usar datos por defectos.
+<br>
+Clic en registrarme y seguir.<br>
+sera redireccionado a la plataforma de pago, ingresar el email o registrarse.
+
+
 <p align="center"><img src="https://laravel.com/assets/img/components/logo-laravel.svg"></p>
 
 <p align="center">
