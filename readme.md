@@ -1,4 +1,4 @@
-##Prueba Bandit
+## Prueba Bandit
 Para su uso se debe registrar el usuario en el siguiente enlace:
 http://bandit.brogramador.com <br>
 Luego debe escoger el tipo de persona, y un banco, en este caso Banco Union Colmbiano.
